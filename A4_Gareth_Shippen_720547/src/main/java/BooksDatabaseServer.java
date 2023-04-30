@@ -30,14 +30,15 @@ public class BooksDatabaseServer {
         thePort = Credentials.PORT;
         theIPAddress = Credentials.HOST;
 
+        final int MAX_CONNECTIONS = 1;
+
         //Initialize the socket and runs the service loop
         System.out.println("Server: Initializing server socket at " + theIPAddress + " with listening port " + thePort);
         System.out.println("Server: Exit server application by pressing Ctrl+C (Windows or Linux) or Opt-Cmd-Shift-Esc (Mac OSX)." );
         try {
             //Initialize the socket
-
-
-            //TODO Server initialise socket
+            //TODO Server initialise socket x
+            serverSocket = new ServerSocket(thePort, MAX_CONNECTIONS, InetAddress.getByName(theIPAddress));
 
             System.out.println("Server: Server at " + theIPAddress + " is listening on port : " + thePort);
         } catch (Exception e){
@@ -58,11 +59,9 @@ public class BooksDatabaseServer {
         try {
             //Service loop
             while (true) {
-				
-
-                //TODO Server executeServiceLoop()
-
-				
+                //TODO Server executeServiceLoop() x
+                Socket inComing = serverSocket.accept();
+                BooksDatabaseService serviceThread = new BooksDatabaseService(inComing);
             }
         } catch (Exception e){
             //The creation of the server socket can cause several exceptions;

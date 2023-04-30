@@ -43,9 +43,9 @@ public class BooksDatabaseService extends Thread{
 
     //Class constructor
     public BooksDatabaseService(Socket aSocket){
-        
-		//TODO Service constructor
-		
+		//TODO Service constructor x
+        serviceSocket = aSocket;
+        this.start();
     }
 
 
@@ -57,8 +57,26 @@ public class BooksDatabaseService extends Thread{
 		
 		String tmp = "";
         try {
-
 			//TODO retrieveRequest()
+            InputStream incomingStream = serviceSocket.getInputStream();
+            InputStreamReader streamReader = new InputStreamReader(incomingStream);
+            StringBuffer buffer = new StringBuffer();
+            final char TERMINATOR = '#';
+            final String DELIMITER = ";";
+            char currentCharacter;
+            boolean execute = true;
+
+            while(execute)
+            {
+                currentCharacter = (char) streamReader.read();
+                if(currentCharacter == TERMINATOR)
+                {
+                    execute = false;
+                    continue;
+                }
+                buffer.append(currentCharacter);
+            }
+            requestStr = buffer.toString().split(DELIMITER, 2);
 			
          }catch(IOException e){
             System.out.println("Service thread " + this.getId() + ": " + e);

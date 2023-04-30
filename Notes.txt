@@ -1,0 +1,10 @@
+\i C:/Users/Blinks/Desktop/UniWork/SWW2/Assignment4/books.sql
+
+tables
+author
+book
+bookcopy
+genre
+library
+
+q to skip -- More --

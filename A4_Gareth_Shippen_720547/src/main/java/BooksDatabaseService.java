@@ -57,7 +57,7 @@ public class BooksDatabaseService extends Thread{
 		
 		String tmp = "";
         try {
-			//TODO retrieveRequest()
+			//TODO retrieveRequest() x
             InputStream incomingStream = serviceSocket.getInputStream();
             InputStreamReader streamReader = new InputStreamReader(incomingStream);
             StringBuffer buffer = new StringBuffer();
@@ -92,16 +92,21 @@ public class BooksDatabaseService extends Thread{
 		
 		this.outcome = null;
 		
-		String sql = ""; //TODO attendRequest() - Update this line as needed.
+		String sql = "";
+        //TODO attendRequest() - Update this line as needed.
 		
 		
 		try {
 			//Connet to the database
-			//TODO Service Connect to database
-			
+			//TODO Service Connect to database x
+			Connection bookDB = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
 			//Make the query
 			//TODO Service Make the query
-			
+			Statement statement = bookDB.createStatement();
+
+
+
 			//Process query
 			//TODO Service Process query -  Watch out! You may need to reset the iterator of the row set.
 

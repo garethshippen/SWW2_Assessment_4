@@ -124,8 +124,8 @@ public class BooksDatabaseClient extends Application {
 
 	//Initializes the client socket using the credentials from class Credentials.
 	public void initializeSocket(){
-        
-		//TO BE COMPLETED
+
+		//TODO Client initializeSocket()
 			
 	}
 
@@ -134,7 +134,8 @@ public class BooksDatabaseClient extends Application {
         try {
             System.out.println("Client: Requesting books database service for user command\n" + this.userCommand +"\n");
 
-            //TO BE COMPLETED
+
+			//TODO Client requestService()
 
         }catch(IOException e){
             System.out.println("Client: I/O error. " + e);
@@ -146,7 +147,8 @@ public class BooksDatabaseClient extends Application {
     public void reportServiceOutcome() {
         try {
 
-            //TO BE COMPLETED
+
+			//TODO Client reportServiceOutcome()
 
 			System.out.println(tmp +"\n====================================\n");
         }catch(IOException e){
@@ -167,7 +169,8 @@ public class BooksDatabaseClient extends Application {
 		
 		//Build user message command
 
-		//TO BE COMPLETED
+
+		//TODO Client execute()
 
         //Request service
         try{

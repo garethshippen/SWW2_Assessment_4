@@ -36,7 +36,8 @@ public class BooksDatabaseServer {
         try {
             //Initialize the socket
 
-            //TO BE COMPLETED
+
+            //TODO Server initialise socket
 
             System.out.println("Server: Server at " + theIPAddress + " is listening on port : " + thePort);
         } catch (Exception e){
@@ -58,7 +59,8 @@ public class BooksDatabaseServer {
             //Service loop
             while (true) {
 				
-                //TO BE COMPLETED
+
+                //TODO Server executeServiceLoop()
 
 				
             }

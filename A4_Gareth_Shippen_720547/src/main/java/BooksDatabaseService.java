@@ -44,7 +44,7 @@ public class BooksDatabaseService extends Thread{
     //Class constructor
     public BooksDatabaseService(Socket aSocket){
         
-		//TO BE COMPLETED
+		//TODO Service constructor
 		
     }
 
@@ -58,7 +58,7 @@ public class BooksDatabaseService extends Thread{
 		String tmp = "";
         try {
 
-			//TO BE COMPLETED
+			//TODO retrieveRequest()
 			
          }catch(IOException e){
             System.out.println("Service thread " + this.getId() + ": " + e);
@@ -74,21 +74,21 @@ public class BooksDatabaseService extends Thread{
 		
 		this.outcome = null;
 		
-		String sql = ""; //TO BE COMPLETED- Update this line as needed.
+		String sql = ""; //TODO attendRequest() - Update this line as needed.
 		
 		
 		try {
 			//Connet to the database
-			//TO BE COMPLETED
+			//TODO Service Connect to database
 			
 			//Make the query
-			//TO BE COMPLETED
+			//TODO Service Make the query
 			
 			//Process query
-			//TO BE COMPLETED -  Watch out! You may need to reset the iterator of the row set.
+			//TODO Service Process query -  Watch out! You may need to reset the iterator of the row set.
 
 			//Clean up
-			//TO BE COMPLETED
+			//TODO Service Clean up
 			
 		} catch (Exception e)
 		{ System.out.println(e); }
@@ -102,12 +102,12 @@ public class BooksDatabaseService extends Thread{
     public void returnServiceOutcome(){
         try {
 			//Return outcome
-			//TO BE COMPLETED
+			//TODO Service returnServiceOutcome()
 			
             System.out.println("Service thread " + this.getId() + ": Service outcome returned; " + this.outcome);
             
 			//Terminating connection of the service socket
-			//TO BE COMPLETED
+			//TODO Service Terminate connection
 			
 			
         }catch (IOException e){

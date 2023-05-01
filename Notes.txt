@@ -9,6 +9,29 @@ library
 
 q to skip -- More --
 
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies
+FROM bookcopy
+INNER JOIN book ON bookcopy.bookid = book.bookid
+INNER JOIN library ON bookcopy.libraryid = library.libraryid
+INNER JOIN author ON book.authorid = author.authorid
+WHERE author.familyname ILIKE '%Tolkien%'
+AND library.city ILIKE '%Alexandria%'
+GROUP BY title, publisher, genre, rrp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Need to do some cleaning of input 
 
 select * from author where 'Tolkien' IN (familyname);
@@ -105,13 +128,26 @@ inner join author on book.authorid = author.authorid
 where author.familyname ilike '%lewis%'
 and library.city ilike '%washington%'
 
-select title, publisher, genre, rrp
-from bookcopy
-inner join book on bookcopy.bookid = book.bookid
-inner join library on bookcopy.libraryid = library.libraryid
-inner join author on book.authorid = author.authorid
-where author.familyname ilike '%tolkien%'
-and library.city ilike '%alexandria%'
+===============================================================
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies
+FROM bookcopy
+INNER JOIN book ON bookcopy.bookid = book.bookid
+INNER JOIN library ON bookcopy.libraryid = library.libraryid
+INNER JOIN author ON book.authorid = author.authorid
+WHERE author.familyname ILIKE '%Tolkien%'
+AND library.city ILIKE '%Alexandria%'
+GROUP BY title, publisher, genre, rrp;
+===============================================================
+
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies
+FROM bookcopy
+INNER JOIN book ON bookcopy.bookid = book.bookid
+INNER JOIN library ON bookcopy.libraryid = library.libraryid
+INNER JOIN author ON book.authorid = author.authorid
+WHERE author.familyname ILIKE '%patterson%'
+AND library.city ILIKE '%san diego%'
+GROUP BY title, publisher, genre, rrp;
+
 
 
 

@@ -141,8 +141,7 @@ public class BooksDatabaseClient extends Application {
 
 
 			//TODO Client requestService() x
-			OutputStream request= this.clientSocket.getOutputStream();
-			OutputStreamWriter requestWriter = new OutputStreamWriter();
+			OutputStreamWriter requestWriter = new OutputStreamWriter(clientSocket.getOutputStream());
 			requestWriter.write(userCommand + "#");
 			requestWriter.flush();
 			requestWriter.close();

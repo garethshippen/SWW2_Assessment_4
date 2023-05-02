@@ -92,8 +92,8 @@ public class BooksDatabaseService extends Thread{
 		
 		this.outcome = null;
 		
-		String sql = "";
-        //TODO attendRequest() - Update this line as needed.
+		String sql = "SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE '%?%' AND library.city ILIKE '%?%' GROUP BY title, publisher, genre, rrp;";
+        //TODO attendRequest() - Update this line as needed. x
 		
 		
 		try {
@@ -102,17 +102,42 @@ public class BooksDatabaseService extends Thread{
 			Connection bookDB = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 			//Make the query
-			//TODO Service Make the query
-			Statement statement = bookDB.createStatement();
+			//TODO Service Make the query x
+            PreparedStatement preparedQuery = bookDB.prepareStatement(sql);
+            preparedQuery.clearParameters();
+            preparedQuery.setString(1, requestStr[0]); //author
+            preparedQuery.setString(2, requestStr[1]); //city
+            outcome = preparedQuery.executeQuery();
+
+            if(outcome != null)
+            {
+                //Process query
+                //TODO Service Process query -  Watch out! You may need to reset the iterator of the row set. x
+                while (outcome.next())
+                {
+                    System.out.println(outcome.getString("title") + "|"
+                            + outcome.getString("publisher") + "|"
+                            + outcome.getString("genre") + "|"
+                            + outcome.getDouble("rrp") + "|"
+                            + outcome.getInt("copies"));
+                }
+                outcome.beforeFirst();
+
+                RowSetFactory factory = RowSetProvider.newFactory();
+                CachedRowSet cachedRowSet = factory.createCachedRowSet();
+                cachedRowSet.populate(outcome);
 
 
-
-			//Process query
-			//TODO Service Process query -  Watch out! You may need to reset the iterator of the row set.
-
-			//Clean up
-			//TODO Service Clean up
-			
+                //Clean up
+                //TODO Service Clean up x
+                outcome.close();
+                preparedQuery.close();
+                bookDB.close();
+            }
+            else
+            {
+                flagRequestAttended = false;
+            }
 		} catch (Exception e)
 		{ System.out.println(e); }
 
@@ -125,13 +150,15 @@ public class BooksDatabaseService extends Thread{
     public void returnServiceOutcome(){
         try {
 			//Return outcome
-			//TODO Service returnServiceOutcome()
-			
+			//TODO Service returnServiceOutcome() x
+            ObjectOutputStream outcomeStream = new ObjectOutputStream(serviceSocket.getOutputStream());
+			outcomeStream.writeObject(outcome);
+
             System.out.println("Service thread " + this.getId() + ": Service outcome returned; " + this.outcome);
-            
+            outcomeStream.close();
 			//Terminating connection of the service socket
-			//TODO Service Terminate connection
-			
+			//TODO Service Terminate connection x
+			serviceSocket.close();
 			
         }catch (IOException e){
             System.out.println("Service thread " + this.getId() + ": " + e);

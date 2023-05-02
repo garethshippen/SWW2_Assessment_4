@@ -10,6 +10,7 @@
  */
 
 
+import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -18,12 +19,6 @@ import java.lang.IndexOutOfBoundsException;
 
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 
 import java.sql.*;
 
@@ -125,8 +120,18 @@ public class BooksDatabaseClient extends Application {
 	//Initializes the client socket using the credentials from class Credentials.
 	public void initializeSocket(){
 
-		//TODO Client initializeSocket()
-			
+		//TODO Client initializeSocket() x
+		try
+		{
+			clientSocket = new Socket(Credentials.HOST, Credentials.PORT);
+		}
+		catch(UnknownHostException e)
+		{
+			System.out.println("Client: Unknown host. " + e);
+		}
+		catch(IOException e){
+			System.out.println("Client: I/O error. " + e);
+		}
 	}
 
 
@@ -135,7 +140,12 @@ public class BooksDatabaseClient extends Application {
             System.out.println("Client: Requesting books database service for user command\n" + this.userCommand +"\n");
 
 
-			//TODO Client requestService()
+			//TODO Client requestService() x
+			OutputStream request= this.clientSocket.getOutputStream();
+			OutputStreamWriter requestWriter = new OutputStreamWriter();
+			requestWriter.write(userCommand + "#");
+			requestWriter.flush();
+			requestWriter.close();
 
         }catch(IOException e){
             System.out.println("Client: I/O error. " + e);
@@ -146,9 +156,11 @@ public class BooksDatabaseClient extends Application {
 
     public void reportServiceOutcome() {
         try {
-
-
 			//TODO Client reportServiceOutcome()
+			ObjectInputStream outcomeReader = new ObjectInputStream(clientSocket.getInputStream());
+			serviceOutcome = (CachedRowSet) outcomeReader.readObject();
+
+			//TODO pick up here
 
 			System.out.println(tmp +"\n====================================\n");
         }catch(IOException e){

@@ -109,6 +109,8 @@ public class BooksDatabaseService extends Thread{
             preparedQuery.setString(2, requestStr[1]); //city
             outcome = preparedQuery.executeQuery();
 
+            //TODO allow for DB updates
+
             if(outcome != null)
             {
                 //Process query
@@ -155,6 +157,7 @@ public class BooksDatabaseService extends Thread{
 			outcomeStream.writeObject(outcome);
 
             System.out.println("Service thread " + this.getId() + ": Service outcome returned; " + this.outcome);
+            outcomeStream.flush();
             outcomeStream.close();
 			//Terminating connection of the service socket
 			//TODO Service Terminate connection x

@@ -106,16 +106,11 @@ public class BooksDatabaseClient extends Application {
 				
 	}
 
-
-
-
-
     //Class Constructor
     public BooksDatabaseClient(){
 		
 		me=this;
     }
-
 
 	//Initializes the client socket using the credentials from class Credentials.
 	public void initializeSocket(){
@@ -139,7 +134,6 @@ public class BooksDatabaseClient extends Application {
         try {
             System.out.println("Client: Requesting books database service for user command\n" + this.userCommand +"\n");
 
-
 			//TODO Client requestService() x
 			OutputStreamWriter requestWriter = new OutputStreamWriter(clientSocket.getOutputStream());
 			requestWriter.write(userCommand + "#");
@@ -160,6 +154,18 @@ public class BooksDatabaseClient extends Application {
 			serviceOutcome = (CachedRowSet) outcomeReader.readObject();
 
 			//TODO pick up here
+			ObservableList<MyTableRecord> records = FXCollections.observableArrayList();
+			while(serviceOutcome.next())
+			{
+				MyTableRecord tempRecord = new MyTableRecord();
+				tempRecord.setTitle(serviceOutcome.getString("title"));
+				tempRecord.setPublisher(serviceOutcome.getString("publisher"));
+				tempRecord.setGenre(serviceOutcome.getString("genre"));
+				tempRecord.setRrp((serviceOutcome.getDouble("rrp")) + "");
+				tempRecord.setCopyID(serviceOutcome.getInt("copies") + "");
+				records.add(tempRecord);
+			}
+
 
 			System.out.println(tmp +"\n====================================\n");
         }catch(IOException e){
@@ -177,11 +183,11 @@ public class BooksDatabaseClient extends Application {
 		ObservableList<Node> childrens = grid.getChildren();
 		TextField authorInputBox = (TextField) childrens.get(1);
 		TextField libraryInputBox = (TextField) childrens.get(3);
-		
+
+		//TODO Client execute() x
 		//Build user message command
+		userCommand = authorInputBox.getText() + ";" + libraryInputBox.getText();
 
-
-		//TODO Client execute()
 
         //Request service
         try{

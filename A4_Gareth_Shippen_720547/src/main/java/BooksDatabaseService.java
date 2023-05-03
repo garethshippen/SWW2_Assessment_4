@@ -124,11 +124,16 @@ public class BooksDatabaseService extends Thread{
                             + outcome.getDouble("rrp") + "|"
                             + outcome.getInt("copies"));
                 }
+
+                System.out.println("\n");
+
                 outcome.beforeFirst();
 
-//                RowSetFactory factory = RowSetProvider.newFactory();
-//                CachedRowSet cachedRowSet = factory.createCachedRowSet();
-//                cachedRowSet.populate(outcome);
+                //TODO trouble with serialised this stuff
+
+                RowSetFactory factory = RowSetProvider.newFactory();
+                CachedRowSet cachedRowSet = factory.createCachedRowSet();
+                cachedRowSet.populate(outcome);
 
 
                 //Clean up

@@ -92,7 +92,9 @@ public class BooksDatabaseService extends Thread{
 		
 		this.outcome = null;
 		
-		String sql = "SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE '%?%' AND library.city ILIKE '%?%' GROUP BY title, publisher, genre, rrp;";
+		//String sql = "SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE '%?%' AND library.city ILIKE '%?%' GROUP BY title, publisher, genre, rrp;";
+        String sql = "SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE ? AND library.city ILIKE ? GROUP BY title, publisher, genre, rrp;";
+
         //TODO attendRequest() - Update this line as needed. x
 		
 		
@@ -100,10 +102,9 @@ public class BooksDatabaseService extends Thread{
 			//Connet to the database
 			//TODO Service Connect to database x
 			Connection bookDB = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
 			//Make the query
 			//TODO Service Make the query x
-            PreparedStatement preparedQuery = bookDB.prepareStatement(sql);
+            PreparedStatement preparedQuery = bookDB.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             preparedQuery.clearParameters();
             preparedQuery.setString(1, requestStr[0]); //author
             preparedQuery.setString(2, requestStr[1]); //city
@@ -125,9 +126,9 @@ public class BooksDatabaseService extends Thread{
                 }
                 outcome.beforeFirst();
 
-                RowSetFactory factory = RowSetProvider.newFactory();
-                CachedRowSet cachedRowSet = factory.createCachedRowSet();
-                cachedRowSet.populate(outcome);
+//                RowSetFactory factory = RowSetProvider.newFactory();
+//                CachedRowSet cachedRowSet = factory.createCachedRowSet();
+//                cachedRowSet.populate(outcome);
 
 
                 //Clean up
@@ -141,7 +142,7 @@ public class BooksDatabaseService extends Thread{
                 flagRequestAttended = false;
             }
 		} catch (Exception e)
-		{ System.out.println(e); }
+		{ System.out.println(e);}
 
         return flagRequestAttended;
     }

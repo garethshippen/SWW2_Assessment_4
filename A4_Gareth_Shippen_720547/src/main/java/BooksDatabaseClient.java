@@ -138,7 +138,7 @@ public class BooksDatabaseClient extends Application {
 			OutputStreamWriter requestWriter = new OutputStreamWriter(clientSocket.getOutputStream());
 			requestWriter.write(userCommand + "#");
 			requestWriter.flush();
-			requestWriter.close();
+			//requestWriter.close();
 
         }catch(IOException e){
             System.out.println("Client: I/O error. " + e);

@@ -153,8 +153,12 @@ public class BooksDatabaseClient extends Application {
 			ObjectInputStream outcomeReader = new ObjectInputStream(clientSocket.getInputStream());
 			serviceOutcome = (CachedRowSet) outcomeReader.readObject();
 
+			GridPane grid = (GridPane) thePrimaryStage.getScene().getRoot();
+			ObservableList<Node> childrens = grid.getChildren();
+			TableView<MyTableRecord> outputBox = (TableView<MyTableRecord>) childrens.get(2);
+			ObservableList<MyTableRecord> tmp = outputBox.getItems();
+			tmp.clear();
 			//TODO pick up here
-			ObservableList<MyTableRecord> records = FXCollections.observableArrayList();
 			while(serviceOutcome.next())
 			{
 				MyTableRecord tempRecord = new MyTableRecord();
@@ -163,7 +167,7 @@ public class BooksDatabaseClient extends Application {
 				tempRecord.setGenre(serviceOutcome.getString("genre"));
 				tempRecord.setRrp((serviceOutcome.getDouble("rrp")) + "");
 				tempRecord.setCopyID(serviceOutcome.getInt("copies") + "");
-				records.add(tempRecord);
+				tmp.add(tempRecord);
 			}
 
 

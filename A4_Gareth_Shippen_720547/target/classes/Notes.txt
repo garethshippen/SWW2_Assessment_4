@@ -1,0 +1,160 @@
+\i C:/Users/Blinks/Desktop/UniWork/SWW2/Assignment4/books.sql
+
+tables
+author
+book
+bookcopy
+genre
+library
+
+q to skip -- More --
+
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies
+FROM bookcopy
+INNER JOIN book ON bookcopy.bookid = book.bookid
+INNER JOIN library ON bookcopy.libraryid = library.libraryid
+INNER JOIN author ON book.authorid = author.authorid
+WHERE author.familyname ILIKE '%Tolkien%'
+AND library.city ILIKE '%Alexandria%'
+GROUP BY title, publisher, genre, rrp;
+
+
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE '%Tolkien%' AND library.city ILIKE '%Alexandria%' GROUP BY title, publisher, genre, rrp;
+
+
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE '%Tolkien%' AND library.city ILIKE '%Alexandria%' GROUP BY title, publisher, genre, rrp;
+
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE '%?%' AND library.city ILIKE '%?%' GROUP BY title, publisher, genre, rrp;
+
+
+
+
+
+
+Need to do some cleaning of input 
+
+select * from author where 'Tolkien' IN (familyname);
+
+select libraryid from library where city ilike '%washington%';
+
+select * from book natural join author where familyname ilike '%tolkien%';
+
+
+
+select * from book natural join author;
+select * from bookcopy natural join library;
+
+input
+familyname, city
+
+output
+title, publisher, genre, rrp, num.copies
+
+schema
+author
+authorid, firstname, familyname
+
+book
+bookid, title, publisher, authorid, genre, rrp
+
+bookcopy
+bookid, libraryid, copyid, digital, onloan
+
+genre
+name
+
+library
+libraryid, name, city, country
+
+select authorid from author where familyname ilike '%userQuery1%';
+select libraryid from library where name ilike '%userQuery2%'
+
+select * from bookcopy where 
+
+select bookid from book where authorid = 1
+
+
+
+select * from bookcopy natural join library where name ilike '%alexandria%' natural join book;
+
+
+select * 
+from bookcopy 
+inner join library on bookcopy.libraryid = library.libraryid where library.name ilike '%alexandria%' 
+inner join book on bookcopy.bookid = book.bookid
+inner join author on book.authorid = author.authorid where author.family ilike '%tolkien%';
+
+=======================================================================
+select title, publisher, genre, rrp from bookcopy
+natural join library
+natural join book
+natural join author
+where author.familyname ilike '%tolkien%' and library.name ilike '%alexandria%';
+========================================================================
+
+=======================================================================
+select title, publisher, genre, rrp from bookcopy
+inner join library on bookcopy.libraryid = library.libraryid
+inner join book on library.bookid = book.bookid
+inner join author on book.authorid = author.authorid
+where author.familyname ilike '%tolkien%' and library.name ilike '%alexandria%';
+========================================================================
+
+
+
+select title, publisher, genre, rrp, libraryid from bookcopy natural join library natural join book natural join author where author.familyname ilike '%lewis%' and library.name ilike '%puebla%'
+
+
+
+
+book
+bookid, title, publisher, authorid, genre, rrp
+
+author
+authorid, firstname, familyname
+
+bookcopy
+bookid, libraryid, copyid, digital, onloan
+
+library
+libraryid, name, city, country
+
+select title, publisher, genre, rrp, bookid,COUNT(*) AS "Copies"
+from bookcopy
+inner join book on bookcopy.bookid = book.bookid
+inner join library on bookcopy.libraryid = library.libraryid
+inner join author on book.authorid = author.authorid
+where author.familyname ilike '%lewis%'
+and library.city ilike '%washington%'
+
+===============================================================
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies
+FROM bookcopy
+INNER JOIN book ON bookcopy.bookid = book.bookid
+INNER JOIN library ON bookcopy.libraryid = library.libraryid
+INNER JOIN author ON book.authorid = author.authorid
+WHERE author.familyname ILIKE '%Tolkien%'
+AND library.city ILIKE '%Alexandria%'
+GROUP BY title, publisher, genre, rrp;
+===============================================================
+
+SELECT title, publisher, genre, rrp, COUNT(*) AS copies
+FROM bookcopy
+INNER JOIN book ON bookcopy.bookid = book.bookid
+INNER JOIN library ON bookcopy.libraryid = library.libraryid
+INNER JOIN author ON book.authorid = author.authorid
+WHERE author.familyname ILIKE '%patterson%'
+AND library.city ILIKE '%san diego%'
+GROUP BY title, publisher, genre, rrp;
+
+
+
+
+
+
+
+
+
+select * from bookcopy natural join library
+natural join book
+natural join author;

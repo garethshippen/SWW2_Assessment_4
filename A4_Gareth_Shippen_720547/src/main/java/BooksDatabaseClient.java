@@ -115,7 +115,6 @@ public class BooksDatabaseClient extends Application {
 	//Initializes the client socket using the credentials from class Credentials.
 	public void initializeSocket(){
 
-		//TODO Client initializeSocket() x
 		try
 		{
 			clientSocket = new Socket(Credentials.HOST, Credentials.PORT);
@@ -134,7 +133,6 @@ public class BooksDatabaseClient extends Application {
         try {
             System.out.println("Client: Requesting books database service for user command\n" + this.userCommand +"\n");
 
-			//TODO Client requestService() x
 			OutputStreamWriter requestWriter = new OutputStreamWriter(clientSocket.getOutputStream());
 			requestWriter.write(userCommand + "#");
 			requestWriter.flush();
@@ -149,16 +147,16 @@ public class BooksDatabaseClient extends Application {
 
     public void reportServiceOutcome() {
         try {
-			//TODO Client reportServiceOutcome()
+
 			ObjectInputStream outcomeReader = new ObjectInputStream(clientSocket.getInputStream());
 			serviceOutcome = (CachedRowSet) outcomeReader.readObject();
 
 			while(serviceOutcome.next())
 			{
-				System.out.println(serviceOutcome.getString("title") + "|"
-						+ serviceOutcome.getString("publisher") + "|"
-						+ serviceOutcome.getString("genre") + "|"
-						+ serviceOutcome.getDouble("rrp") + "|"
+				System.out.println(serviceOutcome.getString("title") + " | "
+						+ serviceOutcome.getString("publisher") + " | "
+						+ serviceOutcome.getString("genre") + " | "
+						+ serviceOutcome.getDouble("rrp") + " | "
 						+ serviceOutcome.getInt("copies"));
 			}
 			serviceOutcome.beforeFirst();
@@ -167,7 +165,7 @@ public class BooksDatabaseClient extends Application {
 			TableView<MyTableRecord> outputBox = (TableView) childrens.get(5);
 			ObservableList<MyTableRecord> tmp = outputBox.getItems();
 			tmp.clear();
-			//TODO pick up here
+
 			while(serviceOutcome.next())
 			{
 				MyTableRecord tempRecord = new MyTableRecord();
@@ -197,9 +195,9 @@ public class BooksDatabaseClient extends Application {
 		TextField authorInputBox = (TextField) childrens.get(1);
 		TextField libraryInputBox = (TextField) childrens.get(3);
 
-		//TODO Client execute() x
+
 		//Build user message command
-		userCommand = authorInputBox.getText() + ";" + libraryInputBox.getText();
+		userCommand = authorInputBox.getText().strip() + ";" + libraryInputBox.getText().strip();
 
 
         //Request service

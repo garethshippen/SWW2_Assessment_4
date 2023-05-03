@@ -43,7 +43,7 @@ public class BooksDatabaseService extends Thread{
 
     //Class constructor
     public BooksDatabaseService(Socket aSocket){
-		//TODO Service constructor x
+
         serviceSocket = aSocket;
         this.start();
     }
@@ -57,7 +57,7 @@ public class BooksDatabaseService extends Thread{
 		
 		String tmp = "";
         try {
-			//TODO retrieveRequest() x
+
             InputStream incomingStream = serviceSocket.getInputStream();
             InputStreamReader streamReader = new InputStreamReader(incomingStream);
             StringBuffer buffer = new StringBuffer();
@@ -94,14 +94,14 @@ public class BooksDatabaseService extends Thread{
 
         String sql = "SELECT title, publisher, genre, rrp, COUNT(*) AS copies FROM bookcopy INNER JOIN book ON bookcopy.bookid = book.bookid INNER JOIN library ON bookcopy.libraryid = library.libraryid INNER JOIN author ON book.authorid = author.authorid WHERE author.familyname ILIKE ? AND library.city ILIKE ? GROUP BY title, publisher, genre, rrp;";
 
-        //TODO attendRequest() - Update this line as needed. x
+
 		try {
 			//Connet to the database
-			//TODO Service Connect to database x
+
             ResultSet tempRecords = null;
 			Connection bookDB = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			//Make the query
-			//TODO Service Make the query x
+
             PreparedStatement preparedQuery = bookDB.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             preparedQuery.clearParameters();
             preparedQuery.setString(1, requestStr[0]); //author
@@ -113,23 +113,23 @@ public class BooksDatabaseService extends Thread{
             outcome.populate(tempRecords);
             this.outcome = outcome;
 
-            //TODO allow for DB updates
+
 
             //Process query
-            //TODO Service Process query -  Watch out! You may need to reset the iterator of the row set. x
+
             tempRecords.beforeFirst();
             while (tempRecords.next())
             {
-                System.out.println(tempRecords.getString("title") + "|"
-                        + tempRecords.getString("publisher") + "|"
-                        + tempRecords.getString("genre") + "|"
-                        + tempRecords.getDouble("rrp") + "|"
+                System.out.println(tempRecords.getString("title") + " | "
+                        + tempRecords.getString("publisher") + " | "
+                        + tempRecords.getString("genre") + " | "
+                        + tempRecords.getDouble("rrp") + " | "
                         + tempRecords.getInt("copies"));
             }
             System.out.println("\n");
 
             //Clean up
-            //TODO Service Clean up x
+
             tempRecords.close();
             preparedQuery.close();
             bookDB.close();
@@ -146,7 +146,7 @@ public class BooksDatabaseService extends Thread{
     public void returnServiceOutcome(){
         try {
 			//Return outcome
-			//TODO Service returnServiceOutcome() x
+
             ObjectOutputStream outcomeStream = new ObjectOutputStream(serviceSocket.getOutputStream());
 			outcomeStream.writeObject(outcome);
 
@@ -154,7 +154,7 @@ public class BooksDatabaseService extends Thread{
             outcomeStream.flush();
             outcomeStream.close();
 			//Terminating connection of the service socket
-			//TODO Service Terminate connection x
+
 			serviceSocket.close();
 			
         }catch (IOException e){

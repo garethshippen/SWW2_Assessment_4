@@ -176,7 +176,7 @@ public class BooksDatabaseClient extends Application {
 				tempRecord.setCopyID(serviceOutcome.getInt("copies") + "");
 				tmp.add(tempRecord);
 			}
-
+			System.out.println("\n");
 
 			System.out.println(tmp +"\n====================================\n");
         }catch(IOException e){

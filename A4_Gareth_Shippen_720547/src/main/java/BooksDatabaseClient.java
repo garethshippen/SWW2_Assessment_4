@@ -153,9 +153,18 @@ public class BooksDatabaseClient extends Application {
 			ObjectInputStream outcomeReader = new ObjectInputStream(clientSocket.getInputStream());
 			serviceOutcome = (CachedRowSet) outcomeReader.readObject();
 
+			while(serviceOutcome.next())
+			{
+				System.out.println(serviceOutcome.getString("title") + "|"
+						+ serviceOutcome.getString("publisher") + "|"
+						+ serviceOutcome.getString("genre") + "|"
+						+ serviceOutcome.getDouble("rrp") + "|"
+						+ serviceOutcome.getInt("copies"));
+			}
+			serviceOutcome.beforeFirst();
 			GridPane grid = (GridPane) thePrimaryStage.getScene().getRoot();
 			ObservableList<Node> childrens = grid.getChildren();
-			TableView<MyTableRecord> outputBox = (TableView<MyTableRecord>) childrens.get(2);
+			TableView<MyTableRecord> outputBox = (TableView) childrens.get(5);
 			ObservableList<MyTableRecord> tmp = outputBox.getItems();
 			tmp.clear();
 			//TODO pick up here
